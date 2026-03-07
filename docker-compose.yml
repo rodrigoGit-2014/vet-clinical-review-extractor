@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vetplatform-postgres
+    environment:
+      POSTGRES_DB: vetplatform
+      POSTGRES_USER: vetplatform
+      POSTGRES_PASSWORD: vetplatform
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vetplatform -d vetplatform"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:

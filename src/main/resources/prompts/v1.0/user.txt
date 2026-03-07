@@ -1,0 +1,3 @@
+Resena clinica del dueno de la mascota (locale: {{locale}}):
+
+"{{reviewText}}"
