@@ -1,3 +1,0 @@
-Solicitud del dueno de mascota buscando veterinario (locale: {{locale}}):
-
-"{{clientText}}"
