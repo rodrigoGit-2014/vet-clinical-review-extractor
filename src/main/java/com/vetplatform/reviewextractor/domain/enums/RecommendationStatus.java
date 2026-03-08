@@ -1,0 +1,17 @@
+package com.vetplatform.reviewextractor.domain.enums;
+
+public enum RecommendationStatus {
+    RECEIVED,
+    INTERPRETING,
+    INTERPRETATION_COMPLETED,
+    INTERPRETATION_FAILED,
+    INTERPRETATION_VALIDATED,
+    NORMALIZATION_COMPLETED,
+    NORMALIZATION_FAILED,
+    MATCHING,
+    MATCHING_FAILED,
+    SCORING_COMPLETED,
+    COMPLETED,
+    FAILED,
+    REPROCESSING
+}

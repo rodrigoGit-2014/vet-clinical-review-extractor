@@ -45,6 +45,21 @@ public class PromptBuilderService {
                 .replace("{{reviewText}}", reviewText);
     }
 
+    public String buildMatchingSystemPrompt(String version) {
+        return loadTemplate(version, "matching_system.txt");
+    }
+
+    public String buildMatchingUserPrompt(String clientText, String locale, String locationHint, String version) {
+        String template = loadTemplate(version, "matching_user.txt");
+        String result = template
+                .replace("{{locale}}", locale)
+                .replace("{{clientText}}", clientText);
+        if (locationHint != null && !locationHint.isBlank()) {
+            result = result + "\n\nUbicacion proporcionada por el cliente: " + locationHint;
+        }
+        return result;
+    }
+
     public String getEffectiveVersion(String versionOverride) {
         return (versionOverride != null && !versionOverride.isBlank()) ? versionOverride : promptVersion;
     }
@@ -53,7 +68,7 @@ public class PromptBuilderService {
         return loadTemplate(promptVersion, fileName);
     }
 
-    private String loadTemplate(String version, String fileName) {
+    public String loadTemplate(String version, String fileName) {
         String cacheKey = version + "/" + fileName;
         return templateCache.computeIfAbsent(cacheKey, key -> {
             String path = "prompts/" + version + "/" + fileName;

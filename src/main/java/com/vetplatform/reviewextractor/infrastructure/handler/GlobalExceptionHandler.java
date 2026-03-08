@@ -1,6 +1,8 @@
 package com.vetplatform.reviewextractor.infrastructure.handler;
 
 import com.vetplatform.reviewextractor.dto.response.ErrorResponse;
+import com.vetplatform.reviewextractor.infrastructure.exception.RecommendationAlreadyProcessingException;
+import com.vetplatform.reviewextractor.infrastructure.exception.RecommendationNotFoundException;
 import com.vetplatform.reviewextractor.infrastructure.exception.ReviewAlreadyProcessingException;
 import com.vetplatform.reviewextractor.infrastructure.exception.ReviewNotFoundException;
 import org.slf4j.Logger;
@@ -41,6 +43,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ReviewAlreadyProcessingException.class)
     public ResponseEntity<ErrorResponse> handleAlreadyProcessing(ReviewAlreadyProcessingException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ErrorResponse.of("ALREADY_PROCESSING", ex.getMessage()));
+    }
+
+    @ExceptionHandler(RecommendationNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleRecommendationNotFound(RecommendationNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.of("NOT_FOUND", ex.getMessage()));
+    }
+
+    @ExceptionHandler(RecommendationAlreadyProcessingException.class)
+    public ResponseEntity<ErrorResponse> handleRecommendationAlreadyProcessing(RecommendationAlreadyProcessingException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ErrorResponse.of("ALREADY_PROCESSING", ex.getMessage()));
     }
